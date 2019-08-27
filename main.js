@@ -189,6 +189,32 @@ function handleKeyPress(e) {
     }
 }
 
+function handleLocationPress(e){
+    var x = parseInt(e.target.id[0])
+    var y = e.target.id[1]
+  console.log(convertLocation(x,y));
+}
+
+function convertLocation(x,y){
+    switch (x) {
+        case 0:
+            return document.getElementById('guessInput').value='A' + y
+        case 1:
+            return document.getElementById('guessInput').value='B' + y
+        case 2:
+            return document.getElementById('guessInput').value='C' + y
+        case 3:
+            return document.getElementById('guessInput').value='D' + y
+        case 4:
+            return document.getElementById('guessInput').value='E' + y
+        case 5:
+            return document.getElementById('guessInput').value='F' + y
+        case 6:
+            return document.getElementById('guessInput').value='G' + y
+        default:
+            return 'B3'
+    }
+}
 
 // init - called when the page has completed loading
 
@@ -199,6 +225,18 @@ function init() {
     var fireButton = document.getElementById("fireButton");
     fireButton.onclick = handleFireButton;
 
+    var t = document.getElementById("table");
+    var trs = t.getElementsByTagName("tr");
+    var tds = null;
+    
+    for (var i=0; i<trs.length; i++)
+    {
+        tds = trs[i].getElementsByTagName("td");
+        for (var n=0; n<trs.length;n++)
+        {
+            tds[n].onclick=handleLocationPress;
+        }
+    }
     // handle "return" key press
     var guessInput = document.getElementById("guessInput");
     guessInput.onkeypress = handleKeyPress;
