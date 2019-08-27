@@ -10,10 +10,12 @@ div#board{
 }
 
 div#messageArea{
-    position: absolute;
+    /* position: absolute; */
+    font-size: 32px;
     top: 0px;
     left: 0px;
     color:rgb(83, 175, 19);
+    text-align: center;
 }
 table{
     position: absolute;

@@ -133,7 +133,7 @@ var controller = {
             this.guesses++;
             var hit = model.fire(location);
             if (hit && model.shipsSunk === model.numShips) {
-                view.displayMessage("You sank all my battleships, in " + this.guesses + " guesses");
+                view.displayMessage("You sank all my battleships - it took you " + this.guesses + " guesses");
             }
         }
     }
@@ -177,25 +177,25 @@ function handleFireButton() {
 }
 
 function handleKeyPress(e) {
+    e.preventDefault();
     var fireButton = document.getElementById("fireButton");
-
+    
     // in IE9 and earlier, the event object doesn't get passed
     // to the event handler correctly, so we use window.event instead.
     e = e || window.event;
 
     if (e.keyCode === 13) {
+
+        console.log('you hit enter')
         fireButton.click();
         return false;
     }
 }
 
-function handleLocationPress(e){
+
+function convertLocation(e){
     var x = parseInt(e.target.id[0])
     var y = e.target.id[1]
-  console.log(convertLocation(x,y));
-}
-
-function convertLocation(x,y){
     switch (x) {
         case 0:
             return document.getElementById('guessInput').value='A' + y
@@ -229,17 +229,15 @@ function init() {
     var trs = t.getElementsByTagName("tr");
     var tds = null;
     
-    for (var i=0; i<trs.length; i++)
-    {
+    for (var i=0; i<trs.length; i++) {
         tds = trs[i].getElementsByTagName("td");
-        for (var n=0; n<trs.length;n++)
-        {
-            tds[n].onclick=handleLocationPress;
+        for (var n=0; n<trs.length;n++) {
+            tds[n].onclick=convertLocation;
         }
     }
     // handle "return" key press
     var guessInput = document.getElementById("guessInput");
-    guessInput.onkeypress = handleKeyPress;
+    guessInput.onkeydown = handleKeyPress;
 
     // place the ships on the game board
     model.generateShipLocations();
